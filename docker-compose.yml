@@ -1,0 +1,64 @@
+# Copyright Datadog TSRE 
+# Author: pierre.quemard@datadoghq.com 
+# Simple compose to build and push to registry, everything else is managed by k8s
+
+services:
+  adservice:
+    image: $REPO/adservice:latest
+    platform: linux/amd64
+    build: ./src/adservice
+
+  cartservice:
+    image: $REPO/cartservice:latest
+    platform: linux/amd64
+    build: ./src/cartservice
+
+  checkoutservice:
+    image: $REPO/checkoutservice:latest
+    platform: linux/amd64
+    build: ./src/checkoutservice
+
+  currencyservice:
+    image: $REPO/currencyservice:latest
+    platform: linux/amd64
+    build: ./src/currencyservice
+
+  emailservice:
+    image: $REPO/emailservice
+    platform: linux/amd64
+    build: ./src/emailservice
+
+  frontend:
+    image: $REPO/frontend
+    platform: linux/amd64
+    build: ./src/frontend
+
+  paymentservice:
+    image: $REPO/paymentservice
+    platform: linux/amd64
+    build: ./src/paymentservice
+
+  paymentdbservice:
+    image: $REPO/paymentdbservice
+    platform: linux/amd64
+    build: ./src/paymentdbservice
+
+  productcatalogservice:
+    image: $REPO/productcatalogservice
+    platform: linux/amd64
+    build: ./src/productcatalogservice
+
+  recommendationservice:
+    image: $REPO/recommendationservice
+    platform: linux/amd64
+    build: ./src/recommendationservice
+
+  shippingservice:
+    image: $REPO/shippingservice
+    platform: linux/amd64
+    build: ./src/shippingservice
+
+  loadgenerator:
+    image: $REPO/loadgenerator
+    platform: linux/amd64
+    build: ./src/loadgenerator

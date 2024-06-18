@@ -1,0 +1,332 @@
+# Copyright Datadog TSRE 
+# Author: pierre.quemard@datadoghq.com 
+
+networks:
+  default:
+    name: TSRE
+    driver: bridge
+
+services:
+  adservice:
+    image: ${IMAGE_NAME}:${IMAGE_VERSION}-adservice
+    container_name: adservice
+    build:
+      context: ./
+      dockerfile: ./src/adservice/dockerfile
+      cache_from:
+        - ${IMAGE_NAME}:${IMAGE_VERSION}-adservice
+    deploy:
+      ressources:
+        requests:
+          cpu: 200m
+          memory: 180Mi
+        limits:
+          cpu: 300m
+          memory: 300Mi
+    restart: unless-stopped
+    ports:
+      - "9555:9555"
+    environment:
+      - PORT=9555
+      - DISABLE_STATS=1
+      - DISABLE_TRACING=1
+      - DISABLE_PROFILER=1
+      - DD_PROFILING_ENABLED=true
+      - DD_LOGS_INJECTION=false
+      - DD_TRACE_SAMPLE_RATE=1
+      - DD_INVENTORIES_CONFIGURATION_ENABLED=true
+      - DD_AGENT_HOST=datadog
+    labels:
+      com.datadoghq.tags.env: 'dash2024'
+      com.datadoghq.tags.service: 'adservice'
+      com.datadoghq.tags.version: '1.0.10'
+      my.custom.label.team: 'ads'
+    depends_on:
+      - datadog
+
+  cartservice:
+    image: ${IMAGE_NAME}:${IMAGE_VERSION}-cartservice
+    container_name: cartservice
+    build:
+      context: ./
+      dockerfile: ./src/cartservice/dockerfile
+      cache_from:
+        - ${IMAGE_NAME}:${IMAGE_VERSION}-cartservice
+    deploy:
+      ressources:
+        requests:
+          cpu: 200m
+          memory: 64Mi
+        limits:
+          cpu: 300m
+          memory: 128Mi
+    restart: unless-stopped
+    ports:
+      - "7070:7070"
+    environment:
+      - PORT=7070
+      - REDIS_ADDR=redis-cart:6379
+      - DD_LOGS_INJECTION=true
+      - DD_RUNTIME_METRICS_ENABLED=true
+      - DD_TRACE_SAMPLE_RATE=1
+      - DD_AGENT_HOST=datadog
+    labels:
+      com.datadoghq.tags.env: 'dash2024'
+      com.datadoghq.tags.service: 'cartservice'
+      com.datadoghq.tags.version: '1.0.10'
+      my.custom.label.team: 'web'
+    depends_on:
+      - datadog
+      - redis
+
+  checkoutservice:
+    image: ${IMAGE_NAME}:${IMAGE_VERSION}-checkoutservice
+    container_name: checkoutservice
+    build:
+      context: ./
+      dockerfile: ./src/checkoutservice/dockerfile
+      cache_from:
+        - ${IMAGE_NAME}:${IMAGE_VERSION}-checkoutservice
+    deploy:
+      ressources:
+        requests:
+          cpu: 100m
+          memory: 64Mi
+        limits:
+          cpu: 200m
+          memory: 128Mi
+    ports:
+      - "5050:5050"
+    environment:
+      - PORT=5050
+      - PRODUCT_CATALOG_SERVICE_ADDR=productcatalogservice:3550
+      - SHIPPING_SERVICE_ADDR=shippingservice:50051
+      - PAYMENT_SERVICE_ADDR=paymentservice:50051
+      - EMAIL_SERVICE_ADDR=emailservice:5000
+      - CURRENCY_SERVICE_ADDR=currencyservice:7000
+      - CART_SERVICE_ADDR=cartservice:7070
+      - DISABLE_PROFILER=1
+      - DISABLE_STATS=1
+      - DISABLE_TRACING=1
+      - DD_PROFILING_ENABLED=true
+      - DD_LOGS_INJECTION=true
+      - DD_TRACE_SAMPLE_RATE=1
+      - DD_AGENT_HOST=datadog
+    labels:
+      com.datadoghq.tags.env: 'dash2024'
+      com.datadoghq.tags.service: 'checkoutservice'
+      com.datadoghq.tags.version: '1.0.10'
+      my.custom.label.team: 'web'
+    depends_on:
+      - datadog
+      - productcatalogservice
+      - shippingservice
+      - paymentservice
+      - emailservice
+      - currencyservice
+      - cartservice
+
+  currencyservice:
+    image: ${IMAGE_NAME}:${IMAGE_VERSION}-currencyservice
+    container_name: currencyservice
+    build:
+      context: ./
+      dockerfile: ./src/currencyservice/dockerfile
+      cache_from:
+        - ${IMAGE_NAME}:${IMAGE_VERSION}-currencyservice
+    deploy:
+      ressources:
+        requests:
+          cpu: 100m
+          memory: 64Mi
+        limits:
+          cpu: 200m
+          memory: 128Mi
+    ports:
+      - "7000:7000"
+    environment:
+      - PORT=7000
+      - DISABLE_PROFILER=1
+      - DISABLE_STATS=1
+      - DISABLE_TRACING=1
+      - DD_PROFILING_ENABLED=true
+      - DD_LOGS_INJECTION=true
+      - DD_TRACE_SAMPLE_RATE=1
+      - DD_RUNTIME_METRICS_ENABLED=true
+      - DD_AGENT_HOST=datadog
+    labels:
+      com.datadoghq.tags.env: 'dash2024'
+      com.datadoghq.tags.service: 'currencyservice'
+      com.datadoghq.tags.version: '1.0.10'
+      my.custom.label.team: 'web'
+    depends_on:
+      - datadog
+
+  emailservice:
+    image: ${IMAGE_NAME}:${IMAGE_VERSION}-emailservice
+    container_name: emailservice
+    build:
+      context: ./
+      dockerfile: ./src/emailservice/dockerfile
+      cache_from:
+        - ${IMAGE_NAME}:${IMAGE_VERSION}-emailservice
+    deploy:
+      ressources:
+        requests:
+          cpu: 258m
+          memory: 128Mi
+        limits:
+          cpu: 500m
+          memory: 256Mi
+    ports:
+      - "8080:5000"
+    environment:
+      - PORT=8080
+      - DISABLE_PROFILER=1
+      - DISABLE_STATS=1
+      - DISABLE_TRACING=1
+      - DD_PROFILING_ENABLED=true
+      - DD_LOGS_INJECTION=true
+      - DD_TRACE_SAMPLE_RATE=1
+      - DD_AGENT_HOST=datadog
+    labels:
+      com.datadoghq.tags.env: 'dash2024'
+      com.datadoghq.tags.service: 'emailservice'
+      com.datadoghq.tags.version: '1.0.10'
+      my.custom.label.team: 'web'
+    depends_on:
+      - datadog
+
+  frontend:
+    image: ${IMAGE_NAME}:${IMAGE_VERSION}-frontend
+    container_name: frontend
+    build:
+      context: ./
+      dockerfile: ./src/frontend/dockerfile
+      cache_from:
+        - ${IMAGE_NAME}:${IMAGE_VERSION}-frontend
+    deploy:
+      ressources:
+        requests:
+          cpu: 100m
+          memory: 64Mi
+        limits:
+          cpu: 200m
+          memory: 128Mi
+    ports:
+      - "8080:80"
+    environment:
+      - PORT=8080
+      - PRODUCT_CATALOG_SERVICE_ADDR=productcatalogservice:3550
+      - SHIPPING_SERVICE_ADDR=shippingservice:50051
+      - PAYMENT_SERVICE_ADDR=paymentservice:50051
+      - EMAIL_SERVICE_ADDR=emailservice:5000
+      - CURRENCY_SERVICE_ADDR=currencyservice:7000
+      - CART_SERVICE_ADDR=cartservice:7070
+      - AD_SERVICE_ADDR=adservice:9555
+      - DISABLE_PROFILER=1
+      - DISABLE_STATS=1
+      - DISABLE_TRACING=1
+      - DD_PROFILING_ENABLED=true
+      - DD_LOGS_INJECTION=true
+      - DD_TRACE_SAMPLE_RATE=1
+      - DD_APPSEC_ENABLED=true
+      - DD_AGENT_HOST=datadog
+    labels:
+      com.datadoghq.tags.env: 'dash2024'
+      com.datadoghq.tags.service: 'frontend'
+      com.datadoghq.tags.version: '1.0.10'
+      my.custom.label.team: 'web'
+    depends_on:
+      - datadog
+      - productcatalogservice
+      - shippingservice
+      - paymentservice
+      - emailservice
+      - currencyservice
+      - cartservice
+      - adservice
+
+  paymentdbservice:
+    image: ${IMAGE_NAME}:${IMAGE_VERSION}-paymentdbservice
+    container_name: paymentdbservice
+    build:
+      context: ./
+      dockerfile: ./src/paymentdbservice/dockerfile
+      cache_from:
+        - ${IMAGE_NAME}:${IMAGE_VERSION}-paymentdbservice
+    deploy:
+      ressources:
+        requests:
+          cpu: 100m
+          memory: 64Mi
+        limits:
+          cpu: 200m
+          memory: 128Mi
+    ports:
+      - "3306:3306"
+    environment:
+      - PORT=3306
+      - MARIADB_ALLOW_EMPTY_ROOT_PASSWORD=0
+      - MARIADB_ROOT_PASSWORD=topsecret
+      - DD_LOGS_INJECTION=true
+      - DD_TRACE_SAMPLE_RATE=1
+      - DD_AGENT_HOST=datadog
+    labels:
+      com.datadoghq.tags.env: 'dash2024'
+      com.datadoghq.tags.service: 'paymentdbservice'
+      com.datadoghq.tags.version: '1.0.10'
+      my.custom.label.team: 'db'
+    annotations:
+      
+    depends_on:
+      - datadog
+      - productcatalogservice
+      - shippingservice
+      - paymentservice
+      - emailservice
+      - currencyservice
+      - cartservice
+
+
+
+
+
+  datadog:
+    image: gcr.io/datadoghq/agent:latest
+    environment:
+      - DD_API_KEY
+      - DD_HOSTNAME=agent-tsre
+      - DD_LOGS_ENABLED=true
+      - DD_LOGS_CONFIG_CONTAINER_COLLECT_ALL=true
+      - DD_PROCESS_AGENT_ENABLED=true
+      - DD_TAGS=env:dash2024
+      - DD_APM_NON_LOCAL_TRAFFIC=true
+      - DD_SYSTEM_PROBE_NETWORK_ENABLED=true
+      - DD_SYSTEM_PROBE_SERVICE_MONITORING_ENABLED=true
+      - DD_CONTAINER_LABELS_AS_TAGS={"my.custom.label.team":"team"}
+      - HOST_ROOT='/host/root'
+    pid: "host"
+    ports:
+      - "8126:8126/tcp"
+      - "8125:8125/udp"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - /proc/:/host/proc/:ro
+      - /sys/fs/cgroup/:/host/sys/fs/cgroup:ro
+      - /sys/kernel/debug:/sys/kernel/debug
+      - /:/host/root:ro
+      - /etc/passwd:/etc/passwd:ro
+      - /etc/group:/etc/group:ro
+      - /etc/os-release:/etc/os-release
+    cap_add:
+      - SYS_ADMIN
+      - SYS_RESOURCE
+      - SYS_PTRACE
+      - NET_ADMIN
+      - NET_BROADCAST
+      - NET_RAW
+      - IPC_LOCK
+      - CHOWN
+    security_opt:
+      - apparmor:unconfined
