@@ -655,7 +655,7 @@ def add_EmailServiceServicer_to_server(servicer, server):
     rpc_method_handlers = {
             'SendOrderConfirmation': grpc.unary_unary_rpc_method_handler(
                     servicer.SendOrderConfirmation,
-                    request_deserializer=demo__pb2.SendOrderConfirmationRequest.FromString,
+                    # request_deserializer=demo__pb2.SendOrderConfirmationRequest.FromString,
                     response_serializer=demo__pb2.Empty.SerializeToString,
             ),
     }
