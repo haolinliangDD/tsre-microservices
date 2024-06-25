@@ -234,7 +234,7 @@ class ProductCatalogServiceStub(object):
         """
         self.ListProducts = channel.unary_unary(
                 '/hipstershop.ProductCatalogService/ListProducts',
-                request_serializer=demo__pb2.Empty.SerializeToString,
+                # request_serializer=demo__pb2.Empty.SerializeToString,
                 response_deserializer=demo__pb2.ListProductsResponse.FromString,
                 )
         self.GetProduct = channel.unary_unary(
