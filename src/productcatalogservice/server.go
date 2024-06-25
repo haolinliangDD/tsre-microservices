@@ -33,7 +33,6 @@ import (
 
 	grpctrace "gopkg.in/DataDog/dd-trace-go.v1/contrib/google.golang.org/grpc"
 	"gopkg.in/DataDog/dd-trace-go.v1/ddtrace/tracer"
-	"gopkg.in/DataDog/dd-trace-go.v1/profiler"
 
 
 	"github.com/golang/protobuf/jsonpb"
@@ -76,22 +75,6 @@ func init() {
 func main() {
 	tracer.Start(tracer.WithRuntimeMetrics())
 	defer tracer.Stop()
-	err := profiler.Start(
-		profiler.WithProfileTypes(
-			profiler.CPUProfile,
-			profiler.HeapProfile,
-			// The profiles below are disabled by
-			// default to keep overhead low, but
-			// can be enabled as needed.
-			// profiler.BlockProfile,
-			// profiler.MutexProfile,
-			// profiler.GoroutineProfile,
-		),
-	)
-	if err != nil {
-		log.Fatal(err)
-	}
-	defer profiler.Stop()
 
 
 	flag.Parse()
