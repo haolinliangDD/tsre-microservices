@@ -76,7 +76,7 @@ spec:
               - all
           privileged: false
           readOnlyRootFilesystem: true
-        image: 237323901629.dkr.ecr.us-east-1.amazonaws.com/loadgenerator:298ecf4
+        image: 237323901629.dkr.ecr.us-east-1.amazonaws.com/loadgenerator:298ecf5
         env:
         - name: FRONTEND_ADDR
           value: "frontend:80"
