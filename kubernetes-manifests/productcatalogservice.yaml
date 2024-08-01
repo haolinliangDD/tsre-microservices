@@ -12,6 +12,13 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+# ServiceAccount definition
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: default
+
+# Deployment definition
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -49,7 +56,7 @@ spec:
           #     - all
           # privileged: false
           # readOnlyRootFilesystem: true
-        image: productcatalogservice
+        image: public.ecr.aws/v6x4t1k2/productcatalogservice
         ports:
         - containerPort: 3550
         env:

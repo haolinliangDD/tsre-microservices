@@ -11,7 +11,15 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-apiVersion: apps/v1
+
+# ServiceAccount definition
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: default
+
+# Deployment definitionapi
+Version: apps/v1
 kind: Deployment
 metadata:
   name: loadgenerator
@@ -72,7 +80,7 @@ spec:
               - all
           privileged: false
           readOnlyRootFilesystem: true
-        image: loadgenerator
+        image: public.ecr.aws/v6x4t1k2/loadgenerator
         env:
         - name: FRONTEND_ADDR
           value: "frontend:80"

@@ -1,3 +1,11 @@
+
+# ServiceAccount definition
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: default
+
+# Deployment definition
 apiVersion: apps/v1
 kind: Deployment # what to create?
 metadata:
@@ -41,7 +49,7 @@ spec: # specification for deployment resource
     spec: # specification for pods
       containers: # we can have one or more containers
       - name: paymentdbservice
-        image: mariadb
+        image: public.ecr.aws/v6x4t1k2/paymentdbservice
         ports:
         - containerPort: 3306
         env:
