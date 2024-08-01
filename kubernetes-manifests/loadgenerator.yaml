@@ -12,14 +12,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# ServiceAccount definition
-apiVersion: v1
-kind: ServiceAccount
-metadata:
-  name: default
-
 # Deployment definitionapi
-Version: apps/v1
+apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: loadgenerator
@@ -71,6 +65,8 @@ spec:
         env:
         - name: FRONTEND_ADDR
           value: "frontend:80"
+      imagePullSecrets:
+        - name: aws-ecr-credentials
       containers:
       - name: main
         securityContext:
@@ -80,7 +76,7 @@ spec:
               - all
           privileged: false
           readOnlyRootFilesystem: true
-        image: public.ecr.aws/v6x4t1k2/loadgenerator
+        image: 237323901629.dkr.ecr.us-east-1.amazonaws.com/loadgenerator:298ecf4
         env:
         - name: FRONTEND_ADDR
           value: "frontend:80"

@@ -12,12 +12,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# ServiceAccount definition
-apiVersion: v1
-kind: ServiceAccount
-metadata:
-  name: default
-
 # Deployment definition
 apiVersion: apps/v1
 kind: Deployment
@@ -48,6 +42,8 @@ spec:
         runAsGroup: 1000
         runAsNonRoot: true
         runAsUser: 1000
+      imagePullSecrets:
+        - name: aws-ecr-credentials
       containers:
         - name: server
           securityContext:
@@ -57,7 +53,7 @@ spec:
                 - all
             privileged: false
             # readOnlyRootFilesystem: true
-          image: public.ecr.aws/v6x4t1k2/frontend
+          image: 237323901629.dkr.ecr.us-east-1.amazonaws.com/frontend:298ecf4
           ports:
           - containerPort: 8080
           readinessProbe:
