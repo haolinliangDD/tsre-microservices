@@ -47,7 +47,7 @@ datadog:
 
   ## Enable Network Performance monitoring
   networkMonitoring:
-    enabled: true
+    enabled: false # Disabled for GKE & Mac Kubernetes
 
   ## Enable process collection
   # If can't detect cluster name:
@@ -79,10 +79,20 @@ datadog:
 
   ## Enable Cloud Security Posture Management and Cloud Workload Security
   securityAgent:
-    runtime:
-      enabled: true
+    # datadog.securityAgent.compliance.enabled -- Set to true to enable Cloud Security Posture Management (CSPM)
     compliance:
-      enabled: true
+      enabled: false # Disabled for GKE & Mac Kubernetes
+
+    runtime:
+     # datadog.securityAgent.runtime.enabled -- Set to true to enable Cloud Workload Security (CWS)
+    enabled: true
+    
+    # datadog.securityAgent.runtime.fimEnabled -- Set to true to enable Cloud Workload Security (CWS) File Integrity Monitoring
+    fimEnabled: false # Disabled for GKE & Mac Kubernetes
+
+    network:
+    # datadog.securityAgent.runtime.network.enabled -- Set to true to enable the collection of CWS network events
+      enabled: false # Disabled for GKE & Mac Kubernetes
       
   ## Enable USM
   serviceMonitoring:
