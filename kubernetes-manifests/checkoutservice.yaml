@@ -40,8 +40,6 @@ spec:
         runAsGroup: 1000
         runAsNonRoot: true
         runAsUser: 1000
-      imagePullSecrets:
-        - name: aws-ecr-credentials
       containers:
         - name: server
           securityContext:
@@ -51,7 +49,7 @@ spec:
                 - all
             privileged: false
             # readOnlyRootFilesystem: true
-          image: 237323901629.dkr.ecr.us-east-1.amazonaws.com/checkoutservice:298ecf5
+          image: public.ecr.aws/v6x4t1k2/checkoutservice:298ecf5
           ports:
           - containerPort: 5050
           # readinessProbe:

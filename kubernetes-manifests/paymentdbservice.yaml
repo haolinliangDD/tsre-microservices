@@ -41,11 +41,9 @@ spec: # specification for deployment resource
           }
         ad.datadoghq.com/paymentdbservice.logs: '[{"source": "mysql", "service": "paymentdbservice"}]'
     spec: # specification for pods
-      imagePullSecrets:
-        - name: aws-ecr-credentials
       containers: # we can have one or more containers
       - name: paymentdbservice
-        image: 237323901629.dkr.ecr.us-east-1.amazonaws.com/paymentdbservice:298ecf5
+        image: public.ecr.aws/v6x4t1k2/paymentdbservice:298ecf5
         ports:
         - containerPort: 3306
         env:

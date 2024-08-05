@@ -65,8 +65,6 @@ spec:
         env:
         - name: FRONTEND_ADDR
           value: "frontend:80"
-      imagePullSecrets:
-        - name: aws-ecr-credentials
       containers:
       - name: main
         securityContext:
@@ -76,7 +74,7 @@ spec:
               - all
           privileged: false
           readOnlyRootFilesystem: true
-        image: 237323901629.dkr.ecr.us-east-1.amazonaws.com/loadgenerator:298ecf5
+        image: public.ecr.aws/v6x4t1k2/loadgenerator:298ecf5
         env:
         - name: FRONTEND_ADDR
           value: "frontend:80"
