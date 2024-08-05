@@ -96,7 +96,7 @@ datadog:
       
   ## Enable USM
   serviceMonitoring:
-    enabled: true
+    enabled: false # Disabled for GKE & Mac Kubernetes - For TSRE need to be enabled
 
   ## Set up kubelet communication configuration
   kubelet:
