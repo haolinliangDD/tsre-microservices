@@ -18,7 +18,7 @@ kind: Deployment
 metadata:
   name: frontend
   labels:
-    tags.datadoghq.com/env: "dash2024"
+    tags.datadoghq.com/env: "ddenv"
     tags.datadoghq.com/service: "frontend"
     tags.datadoghq.com/version: "1.2"
 spec:
@@ -29,7 +29,7 @@ spec:
     metadata:
       labels:
         app: frontend
-        tags.datadoghq.com/env: "dash2024"
+        tags.datadoghq.com/env: "ddenv"
         tags.datadoghq.com/service: "frontend"
         tags.datadoghq.com/version: "1.2"
         admission.datadoghq.com/enabled: "true"
