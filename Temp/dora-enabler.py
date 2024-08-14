@@ -46,18 +46,16 @@ dora_url = "https://app.datadoghq.com/ci/dora/settings"
 print(f"Switching to DORA Setting Page: {dora_url}")
 driver.get(dora_url)
 
-# Click on datadog-ci CLI / API buttons
-buttons = driver.find_element(By.XPATH, "(//button[.//div[contains(text(), 'datadog-ci CLI / API')]])")
-if buttons:
-    print(f"There are {len(buttons)} buttons found.")
-    button[0].click()
-else:  
-    print("No buttons found.")
+# Click the two datadog-ci CLI / API buttons
+button = driver.find_element(By.XPATH, '//*[@id="single-page-app_layout_page__main-content"]/div/div/div[2]/div/div/div[2]/button/div/div')
+button.click()
+
+button = driver.find_element(By.XPATH, '//*[@id="single-page-app_layout_page__main-content"]/div/div/div[4]/div/div/div[2]/button/div/div')
+button.click()
 
 # Click on Save & View Metrics buttons
-button = driver.find_element(By.CSS_SELECTOR, "button[aria-label='Save & View Metrics']")
+button = driver.find_element(By.XPATH, '//*[@id="single-page-app_layout_page__main-content"]/div/div/div[5]/button')
 button.click()
-time.sleep(2)  # Wait for the action to complete or for the page to load
 
 # Close the driver
 driver.quit()
