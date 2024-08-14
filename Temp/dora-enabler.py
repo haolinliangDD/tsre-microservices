@@ -42,14 +42,14 @@ else:
     print("Login might have failed, still on the login page.")
 
 # Click the two datadog-ci CLI / API buttons
-button = driver.find_element(By.XPATH, '//*[@id="single-page-app_layout_page__main-content"]/div/div/div[2]/div/div/div[2]/button/div/div')
+button = driver.find_element(By.XPATH, '/html/body/div[2]/div[3]/div[2]/div/div/div[2]/div/div[1]/div[2]/button/div/div')
 button.click()
 
-button = driver.find_element(By.XPATH, '//*[@id="single-page-app_layout_page__main-content"]/div/div/div[4]/div/div/div[2]/button/div/div')
+button = driver.find_element(By.XPATH, '/html/body/div[2]/div[3]/div[2]/div/div/div[4]/div/div[1]/div[2]/button/div/div')
 button.click()
 
 # Click on Save & View Metrics buttons
-button = driver.find_element(By.XPATH, '//*[@id="single-page-app_layout_page__main-content"]/div/div/div[5]/button')
+button = driver.find_element(By.XPATH, '/html/body/div[2]/div[3]/div[2]/div/div/div[5]/button')
 button.click()
 
 # Close the driver
