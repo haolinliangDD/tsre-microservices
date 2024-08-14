@@ -18,7 +18,7 @@ chrome_options.add_argument("--remote-debugging-port=9222")  # Enable remote deb
 driver = webdriver.Chrome(service=service, options=chrome_options)
 
 # List of websites and credentials
-site = {'url': 'https://app.datadoghq.com/account/login', 'username': 'jf7r3lqrm7@ddtraining.datadoghq.com', 'password': 'd9a1b@78cD'}
+site = {'url': 'https://app.datadoghq.com/ci/dora/settings', 'username': 'jf7r3lqrm7@ddtraining.datadoghq.com', 'password': 'd9a1b@78cD'}
 
 driver.get(site['url'])
 
@@ -36,15 +36,10 @@ time.sleep(2)  # Wait for the login process to complete
 new_url = driver.current_url
 print(f"Current URL: {new_url}")
 
-if "quick_start" in new_url: 
-    print("Login successful, redirected to dashboard.")
+if "/ci/dora/settings" in new_url: 
+    print("Login successful... We are on the DORA Setting Page.")
 else:
     print("Login might have failed, still on the login page.")
-
-dora_url = "https://app.datadoghq.com/ci/dora/settings"
-
-print(f"Switching to DORA Setting Page: {dora_url}")
-driver.get(dora_url)
 
 # Click the two datadog-ci CLI / API buttons
 button = driver.find_element(By.XPATH, '//*[@id="single-page-app_layout_page__main-content"]/div/div/div[2]/div/div/div[2]/button/div/div')
