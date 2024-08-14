@@ -42,30 +42,33 @@ else:
     print("Login might have failed, still on the login page.")
 
 # Click the two datadog-ci CLI / API buttons
-button = driver.find_element(By.XPATH, '//*[@id="single-page-app_layout_page__main-content"]/div/div/div[2]/div/div[1]/div[2]/button')
-print(button)
-button.click()
-time.sleep(2)
+try:
+    button = wait.until(EC.element_to_be_clickable((By.XPATH, '//*[@id="single-page-app_layout_page__main-content"]/div/div/div[2]/div/div[1]/div[2]/button')))
+    print(button)
+    button.click()
+    time.sleep(2)
 
-button = driver.find_element(By.XPATH, '//*[@id="single-page-app_layout_page__main-content"]/div/div/div[4]/div/div[1]/div[2]/button')
-print(button)
-button.click()
+    button = wait.until(EC.element_to_be_clickable((By.XPATH, '//*[@id="single-page-app_layout_page__main-content"]/div/div/div[4]/div/div[1]/div[2]/button')))
+    print(button)
+    button.click()
+    time.sleep(2)
 
-time.sleep(2)
+    # Click on Save & View Metrics buttons
+    button = wait.until(EC.element_to_be_clickable((By.XPATH, '//*[@id="single-page-app_layout_page__main-content"]/div/div/div[5]/button')))
+    print(button)
+    button.click()
+    time.sleep(3)
 
-# Click on Save & View Metrics buttons
-button = driver.find_element(By.XPATH, '//*[@id="single-page-app_layout_page__main-content"]/div/div/div[5]/button')
-print(button)
-button.click()
-time.sleep(3)
+    new_url = driver.current_url
+    print(f"Current URL: {new_url}")
 
-new_url = driver.current_url
-print(f"Current URL: {new_url}")
+    if "settings" not in new_url: 
+        print("DORA Settings Applied Successfully!")
+    else:
+        print("Failed applying DORA Settings!")
 
-if "settings" not in new_url: 
-    print("DORA Settings Applied Successfully!")
-else:
-    print("Failed applying DORA Settings!")
+except Exception as e:
+    print(f"An error occurred: {e}")
 
 # Close the driver
 driver.quit()
