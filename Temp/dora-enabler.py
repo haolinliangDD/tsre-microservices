@@ -18,6 +18,7 @@ chrome_options.add_argument("--disable-gpu")  # Disable GPU acceleration (not ne
 chrome_options.add_argument("--remote-debugging-port=9222")  # Enable remote debugging
 
 driver = webdriver.Chrome(service=service, options=chrome_options)
+wait = WebDriverWait(driver, 10)
 
 # List of websites and credentials
 site = {'url': 'https://app.datadoghq.com/ci/dora/settings', 'username': 'jf7r3lqrm7@ddtraining.datadoghq.com', 'password': 'd9a1b@78cD'}
