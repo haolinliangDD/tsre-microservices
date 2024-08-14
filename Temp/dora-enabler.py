@@ -20,7 +20,7 @@ websites = [
 
 # Initialize the WebDriver
 service = Service(webdriver_path)
-driver = webdriver.Chrome(service=service)
+driver = webdriver.Chrome(service=service, options=chrome_options)
 
 for site in websites:
     driver.get(site['url'])
