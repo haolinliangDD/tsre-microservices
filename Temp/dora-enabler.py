@@ -31,7 +31,7 @@ username_field.send_keys(site['username'])
 password_field.send_keys(site['password'])
 login_button.click()
 
-time.sleep(5)  # Wait for the login process to complete
+time.sleep(2)  # Wait for the login process to complete
 
 new_url = driver.current_url
 print(f"Current URL: {new_url}")
@@ -42,6 +42,9 @@ else:
     print("Login might have failed, still on the login page.")
 
 dora_url = "https://app.datadoghq.com/ci/dora/settings"
+
+print(f"Switching to DORA Setting Page: {dora_url}")
+driver.get(dora_url)
 
 # Click on datadog-ci CLI / API buttons
 buttons = driver.find_element(By.XPATH, "(//button[.//div[contains(text(), 'datadog-ci CLI / API')]])")
