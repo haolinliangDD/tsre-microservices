@@ -10,6 +10,11 @@ webdriver_path = '/usr/local/bin/chromedriver'
 service = Service(webdriver_path)
 chrome_options = Options()
 chrome_options.add_argument("--headless")  # Run in headless mode
+chrome_options.add_argument("--no-sandbox")  # Bypass OS security model
+chrome_options.add_argument("--disable-dev-shm-usage")  # Overcome limited resource problems
+chrome_options.add_argument("--disable-gpu")  # Disable GPU acceleration (not needed in headless mode)
+chrome_options.add_argument("--remote-debugging-port=9222")  # Enable remote debugging
+
 driver = webdriver.Chrome(service=service, options=chrome_options)
 
 # List of websites and credentials
