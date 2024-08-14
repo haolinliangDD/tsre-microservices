@@ -4,7 +4,7 @@ from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
-import time
+import traceback
 
 
 # Initialize the WebDriver
@@ -49,18 +49,15 @@ try:
     button = wait.until(EC.element_to_be_clickable((By.XPATH, '//*[@id="single-page-app_layout_page__main-content"]/div/div/div[2]/div/div[1]/div[2]/button')))
     print(button)
     button.click()
-    time.sleep(2)
 
     button = wait.until(EC.element_to_be_clickable((By.XPATH, '//*[@id="single-page-app_layout_page__main-content"]/div/div/div[4]/div/div[1]/div[2]/button')))
     print(button)
     button.click()
-    time.sleep(2)
 
     # Click on Save & View Metrics buttons
     button = wait.until(EC.element_to_be_clickable((By.XPATH, '//*[@id="single-page-app_layout_page__main-content"]/div/div/div[5]/button')))
     print(button)
     button.click()
-    time.sleep(3)
 
     new_url = driver.current_url
     print(f"Current URL: {new_url}")
@@ -72,6 +69,7 @@ try:
 
 except Exception as e:
     print(f"An error occurred: {e}")
+    traceback.print_exc()
 
 # Close the driver
 driver.quit()
