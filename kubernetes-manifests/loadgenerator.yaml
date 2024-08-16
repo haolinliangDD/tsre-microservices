@@ -76,6 +76,8 @@ spec:
           readOnlyRootFilesystem: true
         image: public.ecr.aws/v6x4t1k2/loadgenerator:298ecf5
         env:
+        - name: DD_TRACE_AGENT_URL
+          value: "unix:///var/run/datadog/apm.socket"
         - name: FRONTEND_ADDR
           value: "frontend:80"
         - name: USERS

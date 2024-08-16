@@ -54,6 +54,8 @@ spec:
         ports:
         - containerPort: 7070
         env:
+        - name: DD_TRACE_AGENT_URL
+          value: "unix:///var/run/datadog/apm.socket"
         - name: REDIS_ADDR
           value: "redis-cart:6379"
         - name: DD_LOGS_INJECTION

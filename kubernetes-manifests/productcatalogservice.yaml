@@ -54,6 +54,8 @@ spec:
         ports:
         - containerPort: 3550
         env:
+        - name: DD_TRACE_AGENT_URL
+          value: "unix:///var/run/datadog/apm.socket"
         - name: PORT
           value: "3550"
         - name: DISABLE_STATS

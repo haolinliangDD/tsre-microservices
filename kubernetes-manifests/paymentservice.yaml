@@ -56,6 +56,8 @@ spec:
         ports:
         - containerPort: 50051
         env:
+        - name: DD_TRACE_AGENT_URL
+          value: "unix:///var/run/datadog/apm.socket"
         - name: SPRING_DATASOURCE_URL
           value: "jdbc:mariadb://paymentdbservice:3306/paymentdb?useUnicode=true&characterEncoding=utf8&useSSL=false"
         - name: SPRING_DATASOURCE_USERNAME
