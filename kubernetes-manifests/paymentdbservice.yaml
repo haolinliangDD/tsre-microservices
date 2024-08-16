@@ -59,6 +59,8 @@ spec: # specification for deployment resource
             mountPath: /docker-entrypoint-initdb.d
           - name: mariadb-config
             mountPath: /etc/mysql/conf.d/ # directory will be cleaned at the beginning
+          - name: apmsocketpath
+            mountPath: /var/run/datadog 
       volumes:
         - name: mysql-initdb
           configMap:
@@ -70,6 +72,9 @@ spec: # specification for deployment resource
             items:
             - key: mariadb.cnf
               path: plugin-configuration.cnf
+        - hostPath:
+            path: /var/run/datadog/
+          name: apmsocketpath
 ---
 apiVersion: v1
 kind: ConfigMap

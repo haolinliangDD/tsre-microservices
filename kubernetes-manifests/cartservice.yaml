@@ -64,6 +64,9 @@ spec:
           value: "1"
         - name: DD_RUNTIME_METRICS_ENABLED
           value: "true"
+        volumeMounts:
+        - name: apmsocketpath
+          mountPath: /var/run/datadog        
         resources:
           requests:
             cpu: 200m
@@ -80,6 +83,10 @@ spec:
         #   periodSeconds: 10
         #   exec:
         #     command: ["/bin/grpc_health_probe", "-addr=:7070", "-rpc-timeout=5s"]
+      volumes:
+        - hostPath:
+            path: /var/run/datadog/
+          name: apmsocketpath
 ---
 apiVersion: v1
 kind: Service
