@@ -104,8 +104,8 @@ datadog:
       valueFrom:
         fieldRef:
           fieldPath: status.hostIP
-  # Disable data to be sent with invalid certs (required for Minikube cluster)
-    #tlsVerify: false
+  # Enable data to be sent with invalid certs (required for kind cluster)
+    tlsVerify: false
   clusterName: ddenv
 
   ## Set up global environment for agent and pods communication
