@@ -96,9 +96,10 @@ metadata:
   name: mysql-initdb-config
 data:
   init.sql: |
-      CREATE USER datadog@'%' IDENTIFIED by 'bitsGoodBoy';
+      CREATE USER datadog@'%' IDENTIFIED BY 'bitsGoodBoy';
       ALTER USER datadog@'%' WITH MAX_USER_CONNECTIONS 5;
       GRANT SLAVE MONITOR ON *.* TO 'datadog'@'%' WITH MAX_USER_CONNECTIONS 5;
+      GRANT REPLICATION CLIENT ON *.* TO 'datadog'@'%' WITH MAX_USER_CONNECTIONS 5;
       GRANT PROCESS ON *.* TO datadog@'%';
       GRANT SELECT ON performance_schema.* TO 'datadog'@'%';
       CREATE SCHEMA IF NOT EXISTS datadog;
