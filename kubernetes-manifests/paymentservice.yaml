@@ -20,7 +20,7 @@ metadata:
   labels:
       tags.datadoghq.com/env: "ddenv"
       tags.datadoghq.com/service: "paymentservice"
-      tags.datadoghq.com/version: "0.6.1"
+      tags.datadoghq.com/version: "0.7.0"
 spec:
   selector:
     matchLabels:
@@ -31,7 +31,7 @@ spec:
         app: paymentservice
         tags.datadoghq.com/env: "ddenv"
         tags.datadoghq.com/service: "paymentservice"
-        tags.datadoghq.com/version: "0.6.1"
+        tags.datadoghq.com/version: "0.7.0"
         admission.datadoghq.com/enabled: "true"
       annotations:
         admission.datadoghq.com/java-lib.version: "latest"
@@ -52,7 +52,7 @@ spec:
               - all
           privileged: false
           # readOnlyRootFilesystem: true
-        image: public.ecr.aws/v6x4t1k2/paymentservice:298ecf5
+        image: public.ecr.aws/v6x4t1k2/paymentservice:v0.7.0
         ports:
         - containerPort: 50051
         env:

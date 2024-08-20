@@ -28,12 +28,11 @@ public class PrometheusHealthResource {
 
     @Scheduled(initialDelay = 10000, fixedDelay=10000)
     public void runInternalHealthCheck() {
-       // System.out.println("Performing internal health check. Status: OK. Build 187921 codename: gruyere"); // fixed version
-        System.out.println("Performing internal health check. Status: OK. Build 187937 codename: camembert"); // broken version
-        if(!process.isAlive()) {
-            runProcess();
-        }
-        
+        System.out.println("Performing internal health check. Status: OK. Build 187921 codename: gruyere"); // fixed version
+       // System.out.println("Performing internal health check. Status: OK. Build 187937 codename: camembert"); // broken version
+       // if(!process.isAlive()) {
+       //     runProcess();
+       // }
     }
 
     private void runProcess() {

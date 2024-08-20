@@ -42,7 +42,7 @@ public class PaymentservicejavaApplication {
             long endTime = System.currentTimeMillis() + 60000; // Run for 1 minute
             while (System.currentTimeMillis() < endTime) {
                 generateBackup();
-                processBackup();
+                //processBackup(); // Commenting out for for Good Version
                 try {
                     Thread.sleep(100); // Sleep for 100ms before next batch
                 } catch (InterruptedException e) {

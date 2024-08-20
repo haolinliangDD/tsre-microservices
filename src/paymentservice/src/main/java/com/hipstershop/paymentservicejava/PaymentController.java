@@ -1,6 +1,7 @@
 package com.hipstershop.paymentservicejava;
 
 import java.io.InputStream;
+import java.net.URI;
 import java.net.URL;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
@@ -34,7 +35,8 @@ public class PaymentController {
         // perform payment "API call"
         boolean rateLimited = true; // should be set to false. Set to true for testing by Chris
         try {
-            URL u = new URL("https://developer.paypal.com/");
+            URI uri = new URI("https://developer.paypal.com/");
+            URL u = uri.toURL();
             InputStream in = u.openStream();
             new String(in.readAllBytes(), StandardCharsets.UTF_8); 
             log.info(String.format("Processing transaction: %s ending %s Amount: %s%d.%d", 
@@ -48,13 +50,14 @@ public class PaymentController {
             e.printStackTrace();
         }
 
-        Random r = new Random(System.currentTimeMillis());
-        if(r.nextBoolean()) {
-            for(double i=0; i<500000; i++) { // let's waste some time to make it look like we're waiting for a table lock
-                Math.sqrt(i);
-            }
-            throw new LockTimeoutException("Lock wait timeout exceeded; try restarting transaction");
-        } 
+        // Commenting Out LockTimeoutException for good build
+        //Random r = new Random(System.currentTimeMillis());
+        //if(r.nextBoolean()) {
+        //    for(double i=0; i<500000; i++) { // let's waste some time to make it look like we're waiting for a table lock
+        //        Math.sqrt(i);
+        //    }
+        //    throw new LockTimeoutException("Lock wait timeout exceeded; try restarting transaction");
+        //} 
 
         if(rateLimited) {
                 // let's make sure we do not have this request in our database already
