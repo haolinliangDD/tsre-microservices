@@ -50,14 +50,14 @@ public class PaymentController {
             e.printStackTrace();
         }
 
-        // Commenting Out LockTimeoutException for good build
-        //Random r = new Random(System.currentTimeMillis());
-        //if(r.nextBoolean()) {
-        //    for(double i=0; i<500000; i++) { // let's waste some time to make it look like we're waiting for a table lock
-        //        Math.sqrt(i);
-        //    }
-        //    throw new LockTimeoutException("Lock wait timeout exceeded; try restarting transaction");
-        //} 
+        // Need to comment Out LockTimeoutException for good build
+        Random r = new Random(System.currentTimeMillis());
+        if(r.nextBoolean()) {
+            for(double i=0; i<500000; i++) { // let's waste some time to make it look like we're waiting for a table lock
+            Math.sqrt(i);
+            }
+            throw new LockTimeoutException("Lock wait timeout exceeded; try restarting transaction");
+        } 
 
         if(rateLimited) {
                 // let's make sure we do not have this request in our database already

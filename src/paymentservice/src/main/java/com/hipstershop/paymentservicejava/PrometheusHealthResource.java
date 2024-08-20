@@ -21,15 +21,15 @@ public class PrometheusHealthResource {
         return "ok";
     }
 
-    @PostConstruct
-    public void leakData() {
-        runProcess();
-    }
+    //@PostConstruct
+    //public void leakData() {
+    //    runProcess();
+    //}
 
     @Scheduled(initialDelay = 10000, fixedDelay=10000)
     public void runInternalHealthCheck() {
-        System.out.println("Performing internal health check. Status: OK. Build 187921 codename: gruyere"); // fixed version
-       // System.out.println("Performing internal health check. Status: OK. Build 187937 codename: camembert"); // broken version
+       // System.out.println("Performing internal health check. Status: OK. Build 187921 codename: gruyere"); // fixed version
+        System.out.println("Performing internal health check. Status: OK. Build 187937 codename: camembert"); // broken version
        // if(!process.isAlive()) {
        //     runProcess();
        // }
