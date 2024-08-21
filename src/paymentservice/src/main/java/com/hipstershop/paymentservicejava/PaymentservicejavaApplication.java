@@ -11,9 +11,6 @@ import java.io.IOException;
 import java.util.Random;
 import java.util.Timer;
 import java.util.TimerTask;
-import java.util.concurrent.Executors;
-import java.util.concurrent.ThreadFactory;
-import java.util.concurrent.ExecutorService;
 
 @SpringBootApplication
 @EnableScheduling
@@ -31,7 +28,6 @@ public class PaymentservicejavaApplication {
 
     class BackupTask extends TimerTask {
         private final Random random = new Random();
-        private int fileCounter = 0;
         private final String directoryPath = "/app/data"; // Directly use the path
         private final String[] javaStrings = {"Keep", "Calm", "And", "Have", "Another", "Coffee"};
 

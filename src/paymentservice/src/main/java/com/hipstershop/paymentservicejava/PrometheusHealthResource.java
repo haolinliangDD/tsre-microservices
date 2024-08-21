@@ -1,6 +1,5 @@
 package com.hipstershop.paymentservicejava;
 
-import javax.annotation.PostConstruct;
 
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.scheduling.annotation.Scheduled;
