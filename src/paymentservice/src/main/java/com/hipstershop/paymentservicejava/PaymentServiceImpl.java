@@ -39,8 +39,10 @@ public class PaymentServiceImpl extends PaymentServiceGrpc.PaymentServiceImplBas
             String transactionId = "none";
             try {
                 transactionId = controller.clearPayment(request);
+                log.info("Payment transaction processed successfully. Transaction ID: " + transactionId);
             } catch(Exception e) {
-                this.log.log(Level.SEVERE, e.getClass().getName() + " occurred. Cannot process payment transaction.");
+                // this.log.log(Level.SEVERE, e.getClass().getName() + " occurred. Cannot process payment transaction."); -- changing logger so it reports to Datadog
+                log.severe(e.getClass().getName() + " occurred. Cannot process payment transaction.");
                 com.google.rpc.Status status = com.google.rpc.Status.newBuilder()
                 .setCode(com.google.rpc.Code.UNAVAILABLE_VALUE)
                 .setMessage(e.getClass().getName())
