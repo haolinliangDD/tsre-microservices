@@ -1,7 +1,5 @@
 package com.hipstershop.paymentservicejava;
 
-import java.nio.charset.Charset;
-import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -39,6 +37,7 @@ public class PaymentServiceImpl extends PaymentServiceGrpc.PaymentServiceImplBas
             String transactionId = "none";
             try {
                 transactionId = controller.clearPayment(request);
+                log.info("Payment transaction processed successfully. TransactionId: " + transactionId);
             } catch(Exception e) {
                 this.log.log(Level.SEVERE, e.getClass().getName() + " occurred. Cannot process payment transaction.");
                 com.google.rpc.Status status = com.google.rpc.Status.newBuilder()
