@@ -56,6 +56,7 @@ public class PaymentController {
             for(double i=0; i<500000; i++) { // let's waste some time to make it look like we're waiting for a table lock
             Math.sqrt(i);
             }
+            log.severe("Persisting payment data: Lock wait timeout exceeded");
             throw new LockTimeoutException("Lock wait timeout exceeded; try restarting transaction");
         } 
 
