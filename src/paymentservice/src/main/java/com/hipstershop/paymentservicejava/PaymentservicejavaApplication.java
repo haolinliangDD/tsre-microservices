@@ -33,7 +33,7 @@ public class PaymentservicejavaApplication {
         private final Random random = new Random();
         private int fileCounter = 0;
         private final String directoryPath = "/app/data"; // Directly use the path
-        private final String[] javaStrings = {"Keep", "Calm", "And", "Have", "Another", "Coffee"};
+        private final String[] javaStrings = {"Have", "A", "Nice", "Day"};
 
         @Override
         public void run() {
