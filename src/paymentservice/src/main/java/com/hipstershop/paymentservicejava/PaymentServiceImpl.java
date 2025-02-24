@@ -42,9 +42,9 @@ public class PaymentServiceImpl extends PaymentServiceGrpc.PaymentServiceImplBas
             try {
                 transactionId = controller.clearPayment(request);
             } catch(Exception e) {
-                this.log.log(Level.SEVERE, e.getClass().getName() + " occurred. Cannot process payment transaction.");
                 int rev = (int )(Math.random() * 10000 + 1);
-                this.log.log(Level.SEVERE, e.getClass().getName() + " Revenue: " + rev );
+                this.log.log(Level.SEVERE, e.getClass().getName() + " occurred. Cannot process payment transaction. Revenue bla " +rev );
+              //  this.log.log(Level.SEVERE, e.getClass().getName() + " Revenue: " );
                 com.google.rpc.Status status = com.google.rpc.Status.newBuilder()
                 .setCode(com.google.rpc.Code.UNAVAILABLE_VALUE)
                 .setMessage(e.getClass().getName())
