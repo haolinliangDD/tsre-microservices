@@ -16,6 +16,8 @@ import hipstershop.Payment.ChargeRequest;
 import hipstershop.Payment.ChargeResponse;
 import io.grpc.protobuf.StatusProto;
 import net.devh.boot.grpc.server.service.GrpcService;
+import java.lang.Math;
+
 
 @GrpcService
 public class PaymentServiceImpl extends PaymentServiceGrpc.PaymentServiceImplBase {
@@ -41,6 +43,8 @@ public class PaymentServiceImpl extends PaymentServiceGrpc.PaymentServiceImplBas
                 transactionId = controller.clearPayment(request);
             } catch(Exception e) {
                 this.log.log(Level.SEVERE, e.getClass().getName() + " occurred. Cannot process payment transaction.");
+                int rev = (int )(Math.random() * 10000 + 1);
+                this.log.log(Level.SEVERE, e.getClass().getName() + " Revenue: " + rev );
                 com.google.rpc.Status status = com.google.rpc.Status.newBuilder()
                 .setCode(com.google.rpc.Code.UNAVAILABLE_VALUE)
                 .setMessage(e.getClass().getName())
