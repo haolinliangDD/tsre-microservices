@@ -26,7 +26,7 @@ public class PaymentController {
     PaymentRecordRepository repo;
 
     public String clearPayment(ChargeRequest request) throws LockTimeoutException {
-        String currency = request.getAmount().getCurrencyCode();
+        String currency = request.getAmount().getCurrencyCode();Processing transaction: 
         Long amount = request.getAmount().getUnits();
         int nanos = request.getAmount().getNanos();
         String ccNumber = request.getCreditCard().getCreditCardNumber();
